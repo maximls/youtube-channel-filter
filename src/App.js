@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
 import './App.css';
-import Search from './components/search';
+import Search from './components/SearchChannel';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       channelResults : {
-        index : { 
-          id: 'channelId',
+         
+          channelIid: 'channelId',
           name: 'channelName',
           description: 'channelDescription',
           thumbnailURL: 'thumbnailURL'
-        }
-      },
+        },
+      
       
       videoResults: {}
     
@@ -25,7 +25,7 @@ class App extends Component {
 
     //Google API Library Loader
 
-      findChannels() {
+      findChannels(input) {
                 
       // Initializes the client with the API key and the YoutubeData API.
       
@@ -37,12 +37,12 @@ class App extends Component {
       }).then(function() {
         // Executes an API request, and returns a Promise.
         return window.gapi.client.youtube.search.list({
-          q: 'blippi',
+          q: `${input}`,
           part: 'id, snippet',
           type: 'channel',
           maxResults: 10,
           safeSearch: 'strict',
-          order: 'rating',
+          order: 'relevance',
           fields: 'items/id/channelId, items/snippet/description, items/snippet/thumbnails/high/url, items/snippet/title'
         });
       }).then(function(response) {     
@@ -63,7 +63,12 @@ class App extends Component {
         });
       }
 
-
+      searchChannel = (event) => {
+        event.preventDefault();
+        console.log(event.target[0].value)
+        this.findChannels(event.target[0].value);
+        
+      }
   render() {
 
     let searchEnabled = false;
@@ -73,9 +78,7 @@ class App extends Component {
 
     window.gapi.load('client', enableSearch);
 
-    const searchChannel = () => {
-      this.findChannels();
-    }
+  
 
     return (
       <div className="App">
@@ -83,11 +86,10 @@ class App extends Component {
     
           <h1 className="App-title">Welcome to React</h1>
         </header>
-        <p className="App-intro">
-          {/* <Search /> */}
-          <button name='search'onClick = {searchChannel} style={{color: 'red'}}>Search</button>
+       
+          <Search click = {this.searchChannel} searchValue = {this.value}/>
           To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        
       </div>
     );
   }
