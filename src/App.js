@@ -10,7 +10,8 @@ class App extends Component {
     this.state = {
       apiLoaded: false,
       savedChannelsIds: [],
-      savedChannelsInfo: {}
+      savedChannelsInfo: {},
+      channelResults: []
     };
   }
 
@@ -98,6 +99,7 @@ class App extends Component {
           <h1 className="App-title">Welcome to React</h1>
         </header>
         <ManageChannels
+          searchResults={this.state.channelResults}
           apiLoaded={this.state.apiLoaded}
           savedChannels={this.state.savedChannelsIds}
           updateList={this.updateChannelList}

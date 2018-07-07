@@ -25,7 +25,7 @@ const searchResults = props => {
 
   return (
     <div>
-      {props.searchInfo.map(result => {
+      {props.searchResults.map(result => {
         return (
           <SearchResultSingle
             key={result.channelId}

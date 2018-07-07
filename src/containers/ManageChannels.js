@@ -46,10 +46,14 @@ class ManageChannels extends Component {
         }
       )
       .then(result => {
-        this.setState({
-          channelResults: result
-        });
-      });
+        console.log(result);
+        this.props.channelResults = result;
+
+        // this.setState({
+        //   channelResults: result
+        // });
+      })
+      .then(console.log("Props", this.props.channelResults));
   }
 
   searchChannel = event => {
@@ -66,7 +70,8 @@ class ManageChannels extends Component {
 
         <Search click={this.searchChannel} searchValue={this.value} />
         <SearchResults
-          searchInfo={this.state.channelResults}
+          searchResults={this.props.searchResults}
+          //searchInfo={this.props.channelResults}
           savedChannels={this.props.savedChannels}
           updateList={this.props.updateList}
         />
