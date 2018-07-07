@@ -26,3 +26,17 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.search-result {
+  border: #222 1px solid;
+  margin: 50px;
+}
+
+.search-result button {
+  margin: 20px;
+}
+
+.search-result img {
+  max-height: 200px;
+  margin: 20px;
+}

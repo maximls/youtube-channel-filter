@@ -1,95 +1,109 @@
-import React, { Component } from 'react';
-import './App.css';
-import Search from './components/SearchChannel';
+import React, { Component } from "react";
+import "./App.css";
+import ManageChannels from "./containers/ManageChannels";
+import ListSavedChannels from "./components/ListSavedChannels";
+import { key } from "./config";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      channelResults : {
-         
-          channelIid: 'channelId',
-          name: 'channelName',
-          description: 'channelDescription',
-          thumbnailURL: 'thumbnailURL'
-        },
-      
-      
-      videoResults: {}
-    
-    
-    
-    }
+      apiLoaded: false,
+      savedChannelsIds: [],
+      savedChannelsInfo: {}
+    };
   }
 
+  componentWillMount() {
+    //Sync local storage with state on channel list updates
+    const localStorageItems = [];
 
-    //Google API Library Loader
+    for (let i = 0; i < localStorage.length; i++) {
+      localStorageItems.push(localStorage.getItem(localStorage.key(i)));
+    }
 
-      findChannels(input) {
-                
-      // Initializes the client with the API key and the YoutubeData API.
-      
-      const key = 'AIzaSyCQTQN5h2fNLc35XDssmGRQzIj-yOVaKcI';
-      
-      window.gapi.client.init({
-        'apiKey': key,
-        'discoveryDocs': ['https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest'],
-      }).then(function() {
-        // Executes an API request, and returns a Promise.
-        return window.gapi.client.youtube.search.list({
-          q: `${input}`,
-          part: 'id, snippet',
-          type: 'channel',
-          maxResults: 10,
-          safeSearch: 'strict',
-          order: 'relevance',
-          fields: 'items/id/channelId, items/snippet/description, items/snippet/thumbnails/high/url, items/snippet/title'
-        });
-      }).then(function(response) {     
-        return response.result.items.reduce((acc, el, index) => {
-          acc[index] = { channelId: el.id.channelId,
-                          name: el.snippet.title,
-                          description: el.snippet.description,
-                          thumbnailURL: el.snippet.thumbnails.high.url }
-          return acc;
-        },{});
-        }, function(reason) {
-          console.log('Error: ' + reason.result.error.message);
-        }).then( result => {
-          console.log(result)
-          this.setState({ channelResults :
-            result
-        })
-        });
+    this.setState({ savedChannelsIds: localStorageItems });
+
+    //readyAPI() checks whether .youtube was loaded every .2 sec and once loaded, sets state.
+    const readyApi = () => {
+      if (window.gapi.client.youtube === undefined) {
+        window.setTimeout(function() {
+          readyApi();
+        }, 200);
+      } else {
+        this.setState({ apiLoaded: true });
+        return;
       }
+    };
 
-      searchChannel = (event) => {
-        event.preventDefault();
-        console.log(event.target[0].value)
-        this.findChannels(event.target[0].value);
-        
+    //Load API
+    window.gapi.load("client", {
+      callback: () => {
+        window.gapi.client
+          .init({
+            apiKey: key,
+            discoveryDocs: [
+              "https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest"
+            ]
+          })
+          .then(
+            //readyAPI() is used to ensure that the .youtube library is loaded. The init function only checks for gapi.client load.
+            readyApi(),
+            () => console.log("Error initializing gapi clilent - check API key")
+          );
+      },
+      onerror: () => {
+        // Handle loading error.
+        console.log("gapi.client failed to load!");
+      },
+      timeout: 5000, // 5 seconds.
+      ontimeout: function() {
+        // Handle timeout.
+        alert("gapi.client could not load in a timely manner!");
       }
+    });
+  }
+
+  //Update state with channel IDs
+  updateChannelList = e => {
+    let updatedChannels = this.state.savedChannelsIds;
+
+    if (updatedChannels.includes(e)) {
+      updatedChannels.splice(updatedChannels.indexOf(e), 1);
+
+      this.setState({ savedChannelsIds: updatedChannels });
+    } else {
+      updatedChannels.push(e);
+
+      this.setState({ savedChannelsIds: updatedChannels });
+    }
+  };
+
   render() {
+    let channels;
 
-    let searchEnabled = false;
-
-
-    const enableSearch = () => searchEnabled = true;
-
-    window.gapi.load('client', enableSearch);
-
-  
+    if (this.state.apiLoaded) {
+      channels = (
+        <ListSavedChannels
+          apiLoaded={this.state.apiLoaded}
+          savedChannelsIds={this.state.savedChannelsIds}
+          savecChannelInfo={this.state.savedChannelsInfo}
+        />
+      );
+    }
 
     return (
       <div className="App">
         <header className="App-header">
-    
           <h1 className="App-title">Welcome to React</h1>
         </header>
-       
-          <Search click = {this.searchChannel} searchValue = {this.value}/>
-          To get started, edit <code>src/App.js</code> and save to reload.
-        
+        <ManageChannels
+          apiLoaded={this.state.apiLoaded}
+          savedChannels={this.state.savedChannelsIds}
+          updateList={this.updateChannelList}
+        />
+
+        {channels}
       </div>
     );
   }
