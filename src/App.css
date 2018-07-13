@@ -40,3 +40,43 @@
   max-height: 200px;
   margin: 20px;
 }
+
+.saved-channels-list {
+  
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  justify-content: space-evenly;
+}
+
+.saved-channels-list li {
+  padding: 10px;
+  border: 1px solid grey;
+  margin: 10px;
+}
+
+.current-channel {
+  border: 2px solid red !important
+}
+
+.saved-channels-list img{
+  max-width: 200px;
+}
+
+nav {
+  min-height: 50px;
+}
+
+nav a {
+  margin: 20px;
+  ;
+}
+
+nav .active {
+  color: red;
+}
+
+.video-player {
+  width: 1000px;
+margin: 0 auto;
+}
