@@ -20,6 +20,7 @@ class ManageChannels extends Component {
             searchValue={this.props.value}
           />
         </div>
+
         <EditSavedChannels
           savedChannels={this.props.savedChannels}
           deleteChannel={this.props.deleteChannel}
