@@ -25,7 +25,20 @@ const ListSavedChannels = ({
     );
   });
 
-  return <ul className="saved-channels-list">{savedList}</ul>;
+  if (savedChannels.length === 0) {
+    return (
+      <div className="empty-channels">
+        <p>Safe YouTube Videos for Kids! - Coming Soon</p>
+      </div>
+    );
+  } else {
+    return (
+      <div className="channels-header">
+        <h2>Channels</h2>
+        <ul className="on-channel-hover saved-channels-list">{savedList}</ul>
+      </div>
+    );
+  }
 };
 
 export default ListSavedChannels;

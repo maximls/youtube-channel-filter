@@ -5,9 +5,11 @@
   "dependencies": {
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
+    "react-infinite-scroller": "^1.2.0",
     "react-promise": "^2.0.3",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
+    "react-s-alert": "^1.4.1",
     "react-scripts": "1.1.4",
     "react-video-players": "^0.1.11"
   },

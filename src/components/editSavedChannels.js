@@ -1,10 +1,6 @@
 import React from "react";
 
 const EditSavedChannels = ({ savedChannels, deleteChannel }) => {
-  //   const deleteChannelwe = event => {
-  //     console.log("Deleted!", event.target.value);
-  //   };
-
   const savedList = savedChannels.map(e => {
     return (
       <li key={`${e[Object.keys(e).join("")].channelID}`}>

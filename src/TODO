@@ -1,1 +1,22 @@
-load current channel's playlists onLoad
+load current channel's playlists onLoad - done
+clean up functions, flow, and argument names -done
+display warning if the channel has no playlists/videos - done
+improve error handling - somewhat done/ in progress
+
+
+
+figure our pagination/long scroll to return all results
+
+figure out initial view (when no channels selected)
+
+figure out a way to launch full screen automatically (investigate the player callbacks) - can't be done at this point
+
+install and configure Google tag manager
+
+figure out how to use ShouldComponentUpdate for better performance
+
+put out the message that IE 11 and below not supported - check outher versions
+
+BUGS:
+
+Chrome bug - when playing playlist - Unhandled Rejection (TypeError): Cannot read property 'standard' of undefined

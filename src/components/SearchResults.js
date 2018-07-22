@@ -1,28 +1,51 @@
 import React from "react";
 import SearchResultSingle from "./SearchResultSingle";
+import Alert from "react-s-alert";
+import { numOfChannels } from "../config";
 
 const searchResults = props => {
-  //Check whether the channel is already saved, if so, remove it from local storage. If it's not in the local storage, check if local storage has room (1 of 3 slots) for it and then add to storage.
+  //First check if the channel has any playlists
+  //Check whether the channel is already saved, if so, remove it from local storage. If it's not in the local storage, check if local storage has room (numOfChannels in config.js) for it and then add to storage.
 
   const saveSearch = el => {
-    const obj = savedChannelObj(el.target.value);
-    if (localStorage.getItem(`channelId - ${el.target.value}`)) {
-      localStorage.removeItem(`channelId - ${el.target.value}`);
-      props.updateList(obj);
-    } else {
-      if (
-        Object.keys(localStorage).filter(e => e.includes("channelId")).length <
-        3
-      ) {
-        localStorage.setItem(
-          `channelId - ${el.target.value}`,
-          `${JSON.stringify(obj)}`
-        );
-        props.updateList(obj);
+    el.persist();
+    new Promise((resolve, reject) => {
+      resolve(
+        window.gapi.client.youtube.playlists.list({
+          channelId: `${el.target.value}`,
+          part: "id",
+          maxResults: 1,
+          fields: "items/id"
+        })
+      );
+      reject(reason => console.log("Didn't work", reason));
+    }).then(results => {
+      if (results.result.items.length > 0) {
+        const obj = savedChannelObj(el.target.value);
+        if (localStorage.getItem(`channelId - ${el.target.value}`)) {
+          localStorage.removeItem(`channelId - ${el.target.value}`);
+          props.updateList(obj);
+        } else {
+          if (
+            Object.keys(localStorage).filter(e => e.includes("channelId"))
+              .length < numOfChannels
+          ) {
+            localStorage.setItem(
+              `channelId - ${el.target.value}`,
+              `${JSON.stringify(obj)}`
+            );
+            props.updateList(obj);
+          } else {
+            Alert.error("Too many channels selected!");
+          }
+        }
       } else {
-        console.log("Too many channels selected!");
+        Alert.error(
+          "This channel has no playlist/videos. Please select a different channel.",
+          { timeout: 3000 }
+        );
       }
-    }
+    });
   };
 
   const savedChannelObj = currentChannelId => {
@@ -42,6 +65,13 @@ const searchResults = props => {
 
   return (
     <div>
+      {props.nextPageState !== undefined && props.nextPageState !== "" ? (
+        <span onClick={() => props.paginate("next")}>Next</span>
+      ) : null}
+      <br />
+      {props.prevPageState !== undefined && props.prevPageState !== "" ? (
+        <span onClick={() => props.paginate("prev")}>Prev</span>
+      ) : null}
       {props.searchResults.map(result => {
         return (
           <SearchResultSingle
@@ -49,6 +79,7 @@ const searchResults = props => {
             thumbnailURL={result.thumbnailURL}
             description={result.description}
             channelId={result.channelId}
+            title={result.name}
             submitted={saveSearch}
           />
         );
