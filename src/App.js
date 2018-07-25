@@ -6,7 +6,7 @@ import "./App.css";
 import "react-s-alert/dist/s-alert-default.css";
 import "react-s-alert/dist/s-alert-css-effects/scale.css";
 import "react-s-alert/dist/s-alert-css-effects/jelly.css";
-import Aux from "./hoc/Aux";
+import Aux from "./hoc/Wrap";
 import ManageChannels from "./containers/ManageChannels";
 import ListSavedChannels from "./components/ListSavedChannels";
 import ListPlaylists from "./components/ListPlaylists";

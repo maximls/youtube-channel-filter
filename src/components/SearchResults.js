@@ -2,7 +2,6 @@ import React from "react";
 import SearchResultSingle from "./SearchResultSingle";
 import Alert from "react-s-alert";
 import { numOfChannels } from "../config";
-import Aux from "../hoc/Aux";
 import Modal from "../UI/Modal";
 import InfiniteScroll from "react-infinite-scroller"; //http://cassetterocks.github.io/react-infinite-scroller/
 

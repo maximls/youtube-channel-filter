@@ -1,5 +1,5 @@
 import React from "react";
-import Aux from "../hoc/Aux";
+import Aux from "../hoc/Wrap";
 import Backdrop from "./Backdrop";
 
 const Modal = props => {
