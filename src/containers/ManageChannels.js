@@ -10,24 +10,33 @@ class ManageChannels extends Component {
       <div className="manage-channels">
         <header>
           <NavLink to="/" exact>
-            Home
+            <img
+              id="logo"
+              src="assets/logo-beta.jpg"
+              alt="Kid Safe Videos Logo"
+            />
           </NavLink>
-          <h1 className="App-title">Search for Channels</h1>
-        </header>
-        <div className="channel-search">
-          <Search
-            click={this.props.searchChannels}
-            searchValue={this.props.value}
-          />
-        </div>
 
+          <div className="channel-search">
+            <Search
+              click={this.props.searchChannels}
+              searchValue={this.props.value}
+            />
+            <NavLink to="/" exact>
+              Back
+            </NavLink>
+          </div>
+        </header>
+        <h1>Saved Channels</h1>
         <EditSavedChannels
           savedChannels={this.props.savedChannels}
           deleteChannel={this.props.deleteChannel}
         />
 
         <SearchResults
+          closeSearch={this.props.closeSearch}
           searchResults={this.props.searchResults}
+          searching={this.props.searching}
           savedChannels={this.props.savedChannels}
           updateList={this.props.updateList}
           paginate={this.props.paginateChannels}

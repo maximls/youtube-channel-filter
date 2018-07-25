@@ -6,6 +6,7 @@ import "./App.css";
 import "react-s-alert/dist/s-alert-default.css";
 import "react-s-alert/dist/s-alert-css-effects/scale.css";
 import "react-s-alert/dist/s-alert-css-effects/jelly.css";
+import Aux from "./hoc/Aux";
 import ManageChannels from "./containers/ManageChannels";
 import ListSavedChannels from "./components/ListSavedChannels";
 import ListPlaylists from "./components/ListPlaylists";
@@ -26,7 +27,8 @@ class App extends Component {
       currentSearch: "",
       playVideo: "",
       prevChannelPage: "",
-      nextChannelPage: ""
+      nextChannelPage: "",
+      searchOpen: false
     };
   }
 
@@ -134,6 +136,10 @@ class App extends Component {
   };
 
   findChannels(input) {
+    if (input === "") {
+      return Alert.error("Cannot leave search field blank", { timeout: 1500 });
+    }
+
     this.setState({ currentSearch: input });
     new Promise((resolve, reject) => {
       if (this.state.apiLoaded) {
@@ -160,10 +166,16 @@ class App extends Component {
       })
       .then(result => {
         this.setState({
-          channelResults: result
+          channelResults: result,
+          searchOpen: true
         });
       });
   }
+
+  closeSearch = () => {
+    console.log("Closed search");
+    this.setState({ searchOpen: false });
+  };
 
   //Find channels based on pageToken to enable pagination. Had to break find channels into 2 functions. First, to retrieve the original set and set the search term.
   // Second, to navigate between the pages in the set.
@@ -376,6 +388,8 @@ class App extends Component {
             path="/manage-channels"
             render={() => (
               <ManageChannels
+                closeSearch={this.closeSearch}
+                searching={this.state.searchOpen}
                 searchResults={this.state.channelResults}
                 savedChannels={this.state.savedChannels}
                 updateList={this.updateChannelList}
@@ -391,7 +405,7 @@ class App extends Component {
             path="/"
             exact
             render={() => (
-              <div>
+              <Aux>
                 <header>
                   <NavLink to="/" exact>
                     <img
@@ -401,7 +415,12 @@ class App extends Component {
                     />
                   </NavLink>
                   <nav>
-                    <NavLink to="/manage-channels">Load Channels </NavLink>
+                    <NavLink to="/manage-channels">
+                      {this.state.savedChannels.length === 0
+                        ? `Load`
+                        : `Change`}{" "}
+                      Channels{" "}
+                    </NavLink>
                   </nav>
 
                   <ListSavedChannels
@@ -424,6 +443,8 @@ class App extends Component {
                   <VideoPlayer
                     currentPlaylist={this.state.currentPlaylist}
                     currentVideo={this.state.playVideo}
+                    savedChannels={this.state.savedChannels}
+                    currentPlaylists={this.state.currentPlaylists}
                   />
 
                   <ListVideos
@@ -432,7 +453,7 @@ class App extends Component {
                     currentPlaylist={this.state.currentPlaylist}
                   />
                 </main>
-              </div>
+              </Aux>
             )}
           />
           <Alert
