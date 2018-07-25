@@ -2,7 +2,21 @@ import React from "react";
 import { YouTubePlayer } from "react-video-players";
 
 const VideoPlayer = props => {
-  if (props.currentPlaylist !== "" || props.currentVideo !== "") {
+  if (props.savedChannels.length === 0) {
+    return (
+      <img
+        src="/assets/load-channel-instruction.jpg"
+        alt="Load Channel Instructions"
+      />
+    );
+  } else if (props.currentPlaylists === undefined) {
+    return (
+      <img
+        src="/assets/select-channel-instruction.jpg"
+        alt="Select Channel Instructions"
+      />
+    );
+  } else if (props.currentPlaylist !== "" || props.currentVideo !== "") {
     let configObj = {};
     if (props.currentVideo !== "") {
       configObj = {
@@ -35,7 +49,12 @@ const VideoPlayer = props => {
       </div>
     );
   } else {
-    return <img src="/assets/init-image.jpg" alt="Instructions" />;
+    return (
+      <img
+        src="/assets/playlist-instruction.jpg"
+        alt=" Playlist Instructions"
+      />
+    );
   }
 };
 

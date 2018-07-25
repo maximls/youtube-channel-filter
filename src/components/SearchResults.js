@@ -2,6 +2,9 @@ import React from "react";
 import SearchResultSingle from "./SearchResultSingle";
 import Alert from "react-s-alert";
 import { numOfChannels } from "../config";
+import Aux from "../hoc/Aux";
+import Modal from "../UI/Modal";
+import InfiniteScroll from "react-infinite-scroller"; //http://cassetterocks.github.io/react-infinite-scroller/
 
 const searchResults = props => {
   //First check if the channel has any playlists
@@ -63,28 +66,41 @@ const searchResults = props => {
     };
   };
 
+  let list = props.searchResults.map(result => {
+    return (
+      <SearchResultSingle
+        key={result.channelId}
+        thumbnailURL={result.thumbnailURL}
+        description={result.description}
+        channelId={result.channelId}
+        title={result.name}
+        submitted={saveSearch}
+      />
+    );
+  });
+
   return (
-    <div>
-      {props.nextPageState !== undefined && props.nextPageState !== "" ? (
-        <span onClick={() => props.paginate("next")}>Next</span>
-      ) : null}
-      <br />
-      {props.prevPageState !== undefined && props.prevPageState !== "" ? (
-        <span onClick={() => props.paginate("prev")}>Prev</span>
-      ) : null}
-      {props.searchResults.map(result => {
-        return (
-          <SearchResultSingle
-            key={result.channelId}
-            thumbnailURL={result.thumbnailURL}
-            description={result.description}
-            channelId={result.channelId}
-            title={result.name}
-            submitted={saveSearch}
-          />
-        );
-      })}
-    </div>
+    <Modal show={props.searching} closeSearch={props.closeSearch}>
+      <InfiniteScroll className="search-results-scroll">
+        {props.nextPageState !== undefined && props.nextPageState !== "" ? (
+          <span onClick={() => props.paginate("next")}>Next 10</span>
+        ) : null}
+        <br />
+        {props.prevPageState !== undefined && props.prevPageState !== "" ? (
+          <span onClick={() => props.paginate("prev")}>Previous 10</span>
+        ) : null}
+
+        {list}
+
+        {props.nextPageState !== undefined && props.nextPageState !== "" ? (
+          <span onClick={() => props.paginate("next")}>Next</span>
+        ) : null}
+        <br />
+        {props.prevPageState !== undefined && props.prevPageState !== "" ? (
+          <span onClick={() => props.paginate("prev")}>Prev</span>
+        ) : null}
+      </InfiniteScroll>
+    </Modal>
   );
 };
 

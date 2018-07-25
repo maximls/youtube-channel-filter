@@ -1,4 +1,5 @@
 import React from "react";
+import Aux from "../hoc/Aux";
 
 const EditSavedChannels = ({ savedChannels, deleteChannel }) => {
   const savedList = savedChannels.map(e => {
@@ -19,7 +20,7 @@ const EditSavedChannels = ({ savedChannels, deleteChannel }) => {
     );
   });
 
-  return <ul className="saved-channels-list">{savedList}</ul>;
+  return <ul className="edit-list saved-channels-list">{savedList}</ul>;
 };
 
 export default EditSavedChannels;

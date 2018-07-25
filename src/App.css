@@ -6,8 +6,8 @@
   --logo-red:#ed0707;
   --logo-blue:#0808f4;
   --logo-orange:#f46c0f;
-  --light-grey: rgb(66, 65, 65)
-
+  --light-grey: rgb(66, 65, 65);
+  --kid-font: 'Permanent Marker', cursive;
 }
 
 .App {
@@ -126,14 +126,20 @@ main {
   margin: 20px;
 }
 
-.saved-channels-list {
-  width: 30vw;
-  height: 13vh;
-  display: flex;
-  flex-direction: row;
-  list-style: none;
-  justify-content: space-around;
-  transition: var(--channel-transition);
+.search-results-scroll {
+  overflow: auto;
+  overflow-x: hidden;
+  height: 85vh;
+}
+
+.search-results-scroll span{
+  background:var(--logo-green);
+  padding: 5px 10px;
+  text-decoration: underline;
+  display: inline;
+  margin: 5px;
+  cursor: pointer;
+  
 }
 
 ul.on-channel-hover:hover {
@@ -154,6 +160,22 @@ ul.on-channel-hover:hover li h1{
   color: rgb(66, 65, 65);
   font-size: .5em;
 }
+
+
+.saved-channels-list {
+  width: 30vw;
+  height: 13vh;
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  justify-content: space-around;
+  transition: var(--channel-transition);
+}
+
+
+
+
+
 
 .saved-channels-list li {
   padding: 10px;
@@ -177,6 +199,41 @@ ul.saved-channels-list li h1 {
   transition: all 1s ease-in-out 0s;
 }
 
+.edit-list {
+  flex-direction: column;
+ height: auto; 
+  /* height: 70vh;
+  margin-top: 30vh; */
+}
+
+
+.edit-list li {
+  width: 7vw;
+  height: auto;
+  cursor: auto;
+  margin-bottom: 20px;
+}
+
+ul.edit-list li h1 {
+  display: block;
+  font-size: 1em;
+  opacity: 1;
+}
+
+.edit-list li button {
+  background: white;
+  border: 1px solid rgb(199, 198, 198);
+  color: var(--logo-red);
+  font-size: 1.2em;
+  font-family: var(--kid-font);
+  transition: all .2s ease-out;
+  box-shadow: var(--light-grey) 2px 2px 4px;
+  margin: 0 auto;
+}
+
+.edit-list li button:hover {
+  box-shadow: none;
+}
 
 .current-channel {
   border: 2px solid var(--logo-red) !important
@@ -338,6 +395,116 @@ h2.videos-section-header {
   max-width: 73vw;
   
 
+}
+
+.manage-channels header {
+  width: 100%;
+  /* position: fixed; */
+  background: white;
+  /* display: flex; */
+  /* justify-content: space-evenly; */
+}
+
+
+.channel-search {
+  margin: 0 auto;
+  margin-top: 30px;
+  
+}
+
+.channel-search a {
+  display: inline-block;
+  padding: 20px;
+}
+
+.channel-search input {
+  height: 2em;
+  width: 20vw;
+  font-size: 1.5em;
+  padding-left: 10px;
+  color: var(--light-grey)
+}
+
+.channel-search label {
+  padding: 0 15px;
+  font-size: 1.5em;
+}
+
+
+.channel-search button {
+  background: var(--logo-orange);
+  color: white;
+  font-size: 1.5em;
+  padding: 8px;
+  margin: 5px 10px;
+  text-transform: uppercase;
+  font-family: var(--kid-font);
+  border: 1px solid var(--logo-orange);
+  border-radius: 4px;
+  box-shadow: var(--light-grey) 2px 2px 4px;
+  transition: all .2s ease-out;
+}
+
+.channel-search button:hover {
+  box-shadow: none;
+}
+
+.search-result button {
+  background: white;
+  border: 1px solid rgb(199, 198, 198);
+  color: var(--logo-green);
+  font-size: 1.2em;
+  font-family: var(--kid-font);
+  transition: all .2s ease-out;
+  box-shadow: var(--light-grey) 2px 2px 4px;
+}
+
+.search-result button:hover {
+  box-shadow: none;
+  
+}
+
+.search-result button[name ='Remove Channel'] {
+    color:var(--logo-red)
+}
+
+
+.backdrop {
+  background: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+  z-index: 200;
+  position: fixed;
+  left: 0;
+  top:0;
+}
+
+
+.modal {
+  position: fixed;
+  z-index: 500;
+  background-color: white;
+  width: 50%;
+  border: 1px solid #ccc;
+  box-shadow: 1px 1px 1px black;
+  left: 15%;
+  top: 12%;
+  box-sizing: border-box;
+  transition: all .5s ease-out;
+  display: block;
+  z-index: 500;
+}
+
+.hide-modal {
+  transform: translateY(-1000vh);
+  /* display: none; */
+}
+
+@media (min-width: 600px) {
+  .modal {
+      width: 600px;
+      left: calc(50% - 250px);
+  }
 }
 
 /* .ytp-expand-pause-overlay .ytp-pause-overlay
