@@ -28,7 +28,8 @@ class App extends Component {
       playVideo: "",
       prevChannelPage: "",
       nextChannelPage: "",
-      searchOpen: false
+      searchOpen: false,
+      highlightPlaylistId: ""
     };
   }
 
@@ -291,9 +292,9 @@ class App extends Component {
           window.gapi.client.youtube.playlistItems.list({
             playlistId: `${input}`,
             part: "snippet, contentDetails",
-            maxResults: 25
-            // fields:
-            //   "items/snippet/resourceId/videoId,  items/snippet/position, items/snippet/title, items/snippet/thumbnails/standard/url"
+            maxResults: 25,
+            fields:
+              "items/snippet/resourceId/videoId,  items/snippet/position, items/snippet/title, items/snippet/thumbnails/medium/url"
           })
         );
       } else {
@@ -327,6 +328,7 @@ class App extends Component {
     this.setState({ currentPlaylist: "" });
     this.setState({ currentVideos: [] });
     this.setState({ playVideo: "" });
+    this.setState({ highlightPlaylistId: playlist });
     //setTimeout is required to bypass React setting state asynchronously.
     window.setTimeout(() => {
       this.setState({ currentPlaylist: playlist });
@@ -335,9 +337,10 @@ class App extends Component {
   };
 
   playSingleVideo = input => {
-    this.setState({ currentPlaylist: "" });
-    this.setState({ playVideo: "" });
+    this.setState({ currentPlaylist: "" }); //Need to empty the playlist to allow the video to play.
+    this.setState({ playVideo: "" }); //Remove currently playing video to allow new video to play
     window.setTimeout(() => {
+      //Allow time to reset state
       this.setState({ playVideo: input });
     }, 100);
   };
@@ -438,6 +441,7 @@ class App extends Component {
                     setCurrentPlaylist={this.setCurrentPlaylist}
                     currentChannel={this.state.currentChannel}
                     currentPlaylist={this.state.currentPlaylist}
+                    highlightPlaylistId={this.state.highlightPlaylistId}
                   />
 
                   <VideoPlayer
@@ -448,6 +452,7 @@ class App extends Component {
                   />
 
                   <ListVideos
+                    currentVideo={this.state.playVideo}
                     currentVideos={this.state.currentVideos}
                     playVideo={this.playSingleVideo}
                     currentPlaylist={this.state.currentPlaylist}

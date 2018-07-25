@@ -2,12 +2,10 @@ load current channel's playlists onLoad - done
 clean up functions, flow, and argument names -done
 display warning if the channel has no playlists/videos - done
 improve error handling - somewhat done/ in progress
+figure out initial view (when no channels selected) - DONE
+figure our pagination/long scroll to return all channel results - done
 
-
-
-figure our pagination/long scroll to return all results
-
-figure out initial view (when no channels selected)
+add About page
 
 figure out a way to launch full screen automatically (investigate the player callbacks) - can't be done at this point
 
@@ -19,4 +17,4 @@ put out the message that IE 11 and below not supported - check outher versions
 
 BUGS:
 
-Chrome bug - when playing playlist - Unhandled Rejection (TypeError): Cannot read property 'standard' of undefined
+Chrome bug - when playing playlist - Unhandled Rejection (TypeError): Cannot read property 'standard' of undefined - DONE

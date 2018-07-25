@@ -13,6 +13,7 @@ const ListPlaylists = props => {
             {...e}
             currentPlaylist={props.currentPlaylist}
             setCurrentPlaylist={props.setCurrentPlaylist}
+            highlightPlaylistId={props.highlightPlaylistId}
           />
         );
       }

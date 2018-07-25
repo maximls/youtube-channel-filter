@@ -4,7 +4,7 @@ const PlaylistSingle = props => {
   return (
     <li
       className={
-        props.currentPlaylist === props.playlistId
+        props.highlightPlaylistId === props.playlistId
           ? `current-playlist playlist`
           : "playlist"
       }
