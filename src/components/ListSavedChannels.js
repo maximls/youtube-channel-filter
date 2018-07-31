@@ -28,7 +28,7 @@ const ListSavedChannels = ({
   if (savedChannels.length === 0) {
     return (
       <div className="empty-channels">
-        <p>Safe YouTube Videos for Kids! - Coming Soon</p>
+        <h1>Safe YouTube Videos for Kids! - Coming Soon</h1>
       </div>
     );
   } else {

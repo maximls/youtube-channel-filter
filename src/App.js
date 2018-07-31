@@ -12,6 +12,7 @@ import ListSavedChannels from "./components/ListSavedChannels";
 import ListPlaylists from "./components/ListPlaylists";
 import VideoPlayer from "./components/VideoPlayer";
 import ListVideos from "./components/ListVideos";
+import About from "./components/About";
 
 class App extends Component {
   constructor(props) {
@@ -115,7 +116,7 @@ class App extends Component {
   }
 
   setChannelResults = results => {
-    this.setState({ channelResults: results });
+    this.setState({ channelResults: results })
   };
 
   processChannelResults = response => {
@@ -261,7 +262,8 @@ class App extends Component {
         console.log("Error: No playlists found" + reason);
       })
       .then(result => {
-        this.setState({ currentPlaylists: result });
+        this.setState({currentPlaylists: result})
+      
       });
   };
 
@@ -281,8 +283,13 @@ class App extends Component {
 
   // Find playlists by clicking on channel. ComponendDidMount checkAPI function handles the loading of playlist from the current channel.
   findPlaylistsClick = input => {
-    this.findPlaylists(input);
-    this.setCurrentChannel(input);
+
+    this.setState({currentPlaylist: ''})
+    this.setState({currentVideos: []})
+setTimeout(
+ () => {  this.findPlaylists(input);
+    this.setCurrentChannel(input)}, 100
+)
   };
 
   findPlaylistVideos = input => {
@@ -404,6 +411,8 @@ class App extends Component {
               />
             )}
           />
+          <Route path="/about" component={About}/>
+          
           <Route
             path="/"
             exact
@@ -424,6 +433,7 @@ class App extends Component {
                         : `Change`}{" "}
                       Channels{" "}
                     </NavLink>
+                    <NavLink to="/about">About</NavLink>
                   </nav>
 
                   <ListSavedChannels

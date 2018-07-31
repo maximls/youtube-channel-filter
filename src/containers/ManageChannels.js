@@ -16,7 +16,7 @@ class ManageChannels extends Component {
               alt="Kid Safe Videos Logo"
             />
           </NavLink>
-
+          <NavLink to="/about">About</NavLink>
           <div className="channel-search">
             <Search
               click={this.props.searchChannels}

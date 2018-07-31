@@ -7,13 +7,19 @@ figure our pagination/long scroll to return all channel results - done
 
 add About page
 
+when changing channels reset the current video and videos - DONE
+
 figure out a way to launch full screen automatically (investigate the player callbacks) - can't be done at this point
 
 install and configure Google tag manager
 
 figure out how to use ShouldComponentUpdate for better performance
 
-put out the message that IE 11 and below not supported - check outher versions
+put out the message that IE 11 and below not supported - check other versions
+
+add Facebook and Twitter meta tags (and image)
+
+add Close button to search results modal
 
 BUGS:
 
