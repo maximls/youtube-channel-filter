@@ -28,6 +28,7 @@ class ManageChannels extends Component {
           </div>
         </header>
         <h1>Saved Channels</h1>
+        <p>Add up to 3 channels</p>
         <EditSavedChannels
           savedChannels={this.props.savedChannels}
           deleteChannel={this.props.deleteChannel}

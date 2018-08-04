@@ -11,15 +11,15 @@ when changing channels reset the current video and videos - DONE
 
 figure out a way to launch full screen automatically (investigate the player callbacks) - can't be done at this point
 
-install and configure Google tag manager
+install and configure Google tag manager - in progress
 
 figure out how to use ShouldComponentUpdate for better performance
 
 put out the message that IE 11 and below not supported - check other versions
 
-add Facebook and Twitter meta tags (and image)
+add Facebook and Twitter meta tags (and image) - done
 
-add Close button to search results modal
+add Close button to search results modal - done
 
 BUGS:
 

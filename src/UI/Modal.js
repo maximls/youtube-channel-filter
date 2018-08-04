@@ -9,7 +9,12 @@ const Modal = props => {
   return (
     <Aux>
       <Backdrop closeSearch={props.closeSearch} show={props.show} />
-      <div className={modalClass}>{props.children}</div>
+      <div className={modalClass}>
+        <span className="close-search" onClick={props.closeSearch}>
+          Close
+        </span>
+        {props.children}
+      </div>
     </Aux>
   );
 };

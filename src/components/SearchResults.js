@@ -92,11 +92,11 @@ const searchResults = props => {
         {list}
 
         {props.nextPageState !== undefined && props.nextPageState !== "" ? (
-          <span onClick={() => props.paginate("next")}>Next</span>
+          <span onClick={() => props.paginate("next")}>Next 10</span>
         ) : null}
         <br />
         {props.prevPageState !== undefined && props.prevPageState !== "" ? (
-          <span onClick={() => props.paginate("prev")}>Prev</span>
+          <span onClick={() => props.paginate("prev")}>Previous 10</span>
         ) : null}
       </InfiniteScroll>
     </Modal>

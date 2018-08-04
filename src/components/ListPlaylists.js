@@ -22,9 +22,7 @@ const ListPlaylists = props => {
     return (
       <div>
         <h2 className="playlists-section-header">Playlists</h2>
-        <div className="empty-playlists">
-          <p>Select a Loaded Channel to Load Playlists</p>
-        </div>
+        <div className="empty-playlists playlists scroll" />
       </div>
     );
   }
@@ -32,14 +30,9 @@ const ListPlaylists = props => {
   return (
     <div>
       <h2 className="playlists-section-header">Playlists</h2>
+
       <InfiniteScroll element="ul" className="playlists scroll">
-        {props.currentChannel.length === "" ? (
-          <div className="empty-playlists">
-            <p>Select a Loaded Channel to Load Playlists</p>
-          </div>
-        ) : (
-          list
-        )}
+        {list}
       </InfiniteScroll>
     </div>
   );

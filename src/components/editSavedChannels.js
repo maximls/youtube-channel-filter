@@ -13,7 +13,7 @@ const EditSavedChannels = ({ savedChannels, deleteChannel }) => {
           onClick={deleteChannel}
           value={`${e[Object.keys(e).join("")].channelID}`}
         >
-          DELETE
+          Delete
         </button>
       </li>
     );

@@ -28,23 +28,20 @@ const ListVideos = ({
 
   // if (currentPlaylist === "") {
   //   errorMessage = "Select a Playlist to Play Videos";
-  // } else
-  // if (currentVideos.length === 0) {
+  // } else if (currentVideos.length === 0) {
   //   errorMessage = "Sorry, No Videos Found. Try a different playlist.";
   // }
 
   return (
     <div>
       <h2 className="videos-section-header">Videos</h2>
-      <InfiniteScroll element="ul" className="playlist-videos scroll">
-        {currentVideos.length === 0 ? (
-          <div className="empty-videos">
-            <p>{errorMessage}</p>
-          </div>
-        ) : (
-          list
-        )}
-      </InfiniteScroll>
+      {currentVideos.length !== 0 ? (
+        <InfiniteScroll element="ul" className="playlist-videos scroll">
+          {list}
+        </InfiniteScroll>
+      ) : (
+        <div className="empty-videos playlist-videos scroll" />
+      )}
     </div>
   );
 };

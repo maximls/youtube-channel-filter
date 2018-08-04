@@ -16,7 +16,9 @@
   /* overflow: hidden; */
 }
 
-
+body {
+  font-family: Verdana, Geneva, Tahoma, sans-serif 
+}
 
 header {
   display: flex;
@@ -29,6 +31,10 @@ header {
   margin: 20px;
 }
 
+a {
+  text-decoration: none;
+}
+
 nav {
   min-height: 50px;
   display: flex;
@@ -38,8 +44,24 @@ nav {
 }
 
 nav a {
-  margin: 20px;
+  margin-top: 20px;
+  margin-right: 20px;
   
+}
+
+a[href="/about"]{
+  background: #6dd72f;
+  padding: 5px 10px;
+  border-radius: 7px;
+  margin-top: 10px;
+  transition: var(--playlist-transition);
+  text-transform: uppercase;
+}
+
+.manage-channels a[href="/about"]{
+  align-self: center;
+  margin-top: -30px;
+  margin-right: 20px;
 }
 
 nav .active {
@@ -56,10 +78,13 @@ nav a[href="/manage-channels"] {
   transition: var(--playlist-transition)
 }
 
-nav a[href="/manage-channels"]:hover {
+a:hover {
   transform: scale(1.2)
 }
 
+.manage-channels a[href="/about"]{
+  order: 2;
+}
 
 .channels-header {
   display: flex;
@@ -117,6 +142,17 @@ main {
   margin: 50px;
 }
 
+.close-search {
+  position: fixed;
+  left: 64vw;
+  top: 15vh;
+  padding: 5px;
+  background: var(--logo-red);
+  color: white;
+  cursor: pointer;
+  border-radius: 7px;
+}
+
 .search-result button {
   margin: 20px;
 }
@@ -136,7 +172,7 @@ main {
   background:var(--logo-green);
   padding: 5px 10px;
   text-decoration: underline;
-  display: inline;
+  display: inline-block;
   margin: 5px;
   cursor: pointer;
   
@@ -200,7 +236,7 @@ ul.saved-channels-list li h1 {
 }
 
 .edit-list {
-  flex-direction: column;
+  /* flex-direction: column; */
  height: auto; 
   /* height: 70vh;
   margin-top: 30vh; */
@@ -225,7 +261,7 @@ ul.edit-list li h1 {
   border: 1px solid rgb(199, 198, 198);
   color: var(--logo-red);
   font-size: 1.2em;
-  font-family: var(--kid-font);
+  /* font-family: var(--kid-font); */
   transition: all .2s ease-out;
   box-shadow: var(--light-grey) 2px 2px 4px;
   margin: 0 auto;
@@ -317,14 +353,16 @@ h2.playlists-section-header {
 }
 
 .empty-playlists {
-  width: 12vw;
+  border-left: 1px solid var(--logo-blue);
+  border-right: 1px solid var(--logo-blue);
+  margin-left: 10px;
 }
-.empty-playlists p {
+/* .empty-playlists p {
   font-size: 1.8em;
   color: var(--light-grey);
   line-height: 1.5em;
   padding: 0 10px;
-}
+} */
 
 
 
@@ -340,6 +378,12 @@ h2.playlists-section-header {
  padding: 0;
  width: 12vw;
  border-bottom: var(--logo-red) solid 10px;
+}
+
+.empty-videos {
+  border-left: 1px solid var(--logo-red);
+  border-right: 1px solid var(--logo-red);
+ 
 }
 
 h2.videos-section-header {
@@ -399,12 +443,12 @@ h2.videos-section-header {
 
 .manage-channels header {
   width: 100%;
-  /* position: sticky; */
   background: white;
-  /* display: flex; */
-  /* justify-content: space-evenly; */
 }
 
+.manage-channels h1, .search-label {
+  color: var(--light-grey)
+}
 
 .channel-search {
   margin: 0 auto;
@@ -452,9 +496,9 @@ h2.videos-section-header {
 .search-result button {
   background: white;
   border: 1px solid rgb(199, 198, 198);
-  color: var(--logo-green);
+  color: #306b0d;
   font-size: 1.2em;
-  font-family: var(--kid-font);
+  /* font-family: var(--kid-font); */
   transition: all .2s ease-out;
   box-shadow: var(--light-grey) 2px 2px 4px;
 }

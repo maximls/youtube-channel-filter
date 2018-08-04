@@ -70,7 +70,11 @@ class App extends Component {
       timeout: 5000, // 5 seconds.
       ontimeout: function() {
         // Handle timeout.
-        alert("gapi.client could not load in a timely manner!");
+        Alert.error(
+          "YouTube API is taking too long to load. Check your Internet connection and try reloading the page again ",
+          { timeout: 1500 }
+        );
+        // alert("gapi.client could not load in a timely manner!");
       }
     });
 
@@ -113,10 +117,12 @@ class App extends Component {
       }
     };
     checkAPI();
+
+    console.log(window.dataLayer);
   }
 
   setChannelResults = results => {
-    this.setState({ channelResults: results })
+    this.setState({ channelResults: results });
   };
 
   processChannelResults = response => {
@@ -238,6 +244,10 @@ class App extends Component {
     this.state.currentChannel !== clickedChannel
       ? this.setState({ currentChannel: `${clickedChannel}` })
       : console.log("warning: channel already loaded");
+
+    window.dataLayer.push({
+      channel: `${clickedChannel}`
+    });
   };
 
   findPlaylists = input => {
@@ -262,8 +272,7 @@ class App extends Component {
         console.log("Error: No playlists found" + reason);
       })
       .then(result => {
-        this.setState({currentPlaylists: result})
-      
+        this.setState({ currentPlaylists: result });
       });
   };
 
@@ -283,13 +292,12 @@ class App extends Component {
 
   // Find playlists by clicking on channel. ComponendDidMount checkAPI function handles the loading of playlist from the current channel.
   findPlaylistsClick = input => {
-
-    this.setState({currentPlaylist: ''})
-    this.setState({currentVideos: []})
-setTimeout(
- () => {  this.findPlaylists(input);
-    this.setCurrentChannel(input)}, 100
-)
+    this.setState({ currentPlaylist: "" });
+    this.setState({ currentVideos: [] });
+    setTimeout(() => {
+      this.findPlaylists(input);
+      this.setCurrentChannel(input);
+    }, 100);
   };
 
   findPlaylistVideos = input => {
@@ -411,8 +419,8 @@ setTimeout(
               />
             )}
           />
-          <Route path="/about" component={About}/>
-          
+          <Route path="/about" component={About} />
+
           <Route
             path="/"
             exact
@@ -429,12 +437,13 @@ setTimeout(
                   <nav>
                     <NavLink to="/manage-channels">
                       {this.state.savedChannels.length === 0
-                        ? `Load`
-                        : `Change`}{" "}
-                      Channels{" "}
+                        ? `Load `
+                        : `Change `}
+                      Channels
                     </NavLink>
                     <NavLink to="/about">About</NavLink>
                   </nav>
+                  {/* If on home screen */}
 
                   <ListSavedChannels
                     apiLoaded={this.state.apiLoaded}
