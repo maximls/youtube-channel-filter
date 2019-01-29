@@ -24,3 +24,27 @@ add Close button to search results modal - done
 BUGS:
 
 Chrome bug - when playing playlist - Unhandled Rejection (TypeError): Cannot read property 'standard' of undefined - DONE
+
+
+
+--------------------------------------------------- Launch message -------------------------------------------
+
+ATTN: Parents/caregivers with young kids. 
+
+I'd like to introduce you to a Kid Safe Video Viewer app that I developed in the last couple of months. First, let me tell you why I developed it.
+Henry (3 1/2) loves watching 'Blippi' on YouTube. Since we both work from home, one of us would pick a video for him to watch and get back to work. Unfortunately, 
+at some point YouTube would start playing videos that we didn't necessarily approve of, and since we weren't in the room we wouldn't notice it right away. 
+Also, Henry is a pretty smart boy and of course he figured out how to use the remote as well.
+He also figured out how to choose his own videos to watch - often from the list of suggested/related videos. This was getting frustrating! 
+I figured there must be a way to control what the kids are watching.
+So I built an app that allows parents/caregivers to load up to 3 channels of their choice and only play videos from those channels and playlists.  
+
+Right now it's a web app - you have to use it with your browser (Chrome, Firefox, Safari). However, if there is interest, I will create a native Android/iOS app as well.
+
+I'd like to ask you to give it a try and let me know of any issues or if you have any suggestions on how to make it better. My goal is to make an easy-to-use, 
+fast app that can be enjoyed daily and create a safe YouTube viewing experience for our children.
+
+The url for the app is https://kidsafevideos
+
+Cheers!
+
